@@ -1,25 +1,24 @@
 # Mathematical Modeling and Analysis of the SEIR Epidemic System
 
-[cite_start]This repository contains the final project for the course **MTH4201: Models in Applied Mathematics** (Florida Tech, Fall 2025)[cite: 1, 3, 4].
+This repository contains the final project for the course **MTH4201: Models in Applied Mathematics** (Florida Tech, Fall 2025)
 
-[cite_start]The project focuses on the mathematical modeling and analysis of infectious disease spread using the **SEIR** (Susceptible-Exposed-Infectious-Recovered) framework, which incorporates a latent period and vital dynamics (births and deaths) [cite: 63-65].
+The project focuses on the mathematical modeling and analysis of infectious disease spread using the **SEIR** (Susceptible-Exposed-Infectious-Recovered) framework, which incorporates a latent period and vital dynamics (births and deaths)
 
 ## 📋 Project Description
 
-[cite_start]The objective of this study is to analyze the dynamic behavior of an infectious disease within a closed population, determine the epidemic threshold ($R_0$), and investigate the stability of equilibrium states [cite: 33-34].
+The objective of this study is to analyze the dynamic behavior of an infectious disease within a closed population, determine the epidemic threshold ($R_0$), and investigate the stability of equilibrium states
 
-Unlike the standard SIR model, this model includes an **Exposed (E)** compartment—representing individuals who have contracted the pathogen but are not yet infectious. [cite_start]This introduces a delay in transmission, resulting in more complex dynamics such as damped oscillations [cite: 64, 93-94].
+Unlike the standard SIR model, this model includes an **Exposed (E)** compartment—representing individuals who have contracted the pathogen but are not yet infectious. This introduces a delay in transmission, resulting in more complex dynamics such as damped oscillations.
 
 ### Key Features
-**Mathematical Formulation:** A system of 4 nonlinear Ordinary Differential Equations (ODEs)[cite: 42].
-**Stability Analysis:** Linearization, Jacobian matrix evaluation, and eigenvalue computation to classify stability types (e.g., stable spiral sink)[cite: 43, 89].
-**Numerical Simulation:** Implementation in MATLAB using the `ode45` solver[cite: 44].
-**Visualization:** Time-series population dynamics, 3D phase portraits, and bifurcation diagrams[cite: 99].
+**Mathematical Formulation:** A system of 4 nonlinear Ordinary Differential Equations (ODEs)
+**Stability Analysis:** Linearization, Jacobian matrix evaluation, and eigenvalue computation to classify stability types (e.g., stable spiral sink)
+**Numerical Simulation:** Implementation in MATLAB using the `ode45` solver
+**Visualization:** Time-series population dynamics, 3D phase portraits, and bifurcation diagrams
 
 ## 🧮 Mathematical Model
 
-[cite_start]The model is defined by the following system of differential equations [cite: 66-67]:
-
+The model is defined by the following system of differential equations
 $$
 \begin{cases}
 \frac{dS}{dt} = \mu - \beta SI - \mu S \\
@@ -29,13 +28,13 @@ $$
 \end{cases}
 $$
 
-[cite_start]**Parameters** [cite: 69-72]:
+**Parameters**
 * $\beta$: Transmission rate.
 * $\sigma$: Incubation rate ($1/\sigma$ is the average latent period).
 * $\gamma$: Recovery rate.
 * $\mu$: Natural birth/death rate.
 
-[cite_start]The **Basic Reproduction Number ($R_0$)** is derived as[cite: 82]:
+The **Basic Reproduction Number ($R_0$)** is derived as
 $$R_0 = \frac{\beta \sigma}{(\sigma + \mu)(\gamma + \mu)}$$
 
 ## 📂 Repository Structure
@@ -43,47 +42,47 @@ $$R_0 = \frac{\beta \sigma}{(\sigma + \mu)(\gamma + \mu)}$$
 The repository consists of the following MATLAB scripts:
 
 ### 1. `core.m`
-The main simulation file that [cite: 153-219]:
-Solves the ODE system over the time span $t=[0, 300]$ [cite: 165-166].
-Calculates and displays $R_0$ [cite: 158-159].
-**Figure 1:** Plots time-series dynamics for S, E, I, and R populations [cite: 171-176].
-**Figure 2:** Plots the 3D Phase Space Trajectory ($S$ vs $E$ vs $I$) to visualize the spiral approach to equilibrium [cite: 181-186].
-**Figure 3:** Generates a Transcritical Bifurcation Diagram showing the endemic infection level ($I^*$) as a function of $\beta$ [cite: 204-210].
+The main simulation file that
+Solves the ODE system over the time span $t=[0, 300]$
+Calculates and displays $R_0$
+**Figure 1:** Plots time-series dynamics for S, E, I, and R populations
+**Figure 2:** Plots the 3D Phase Space Trajectory ($S$ vs $E$ vs $I$) to visualize the spiral approach to equilibrium
+**Figure 3:** Generates a Transcritical Bifurcation Diagram showing the endemic infection level ($I^*$) as a function of $\beta$
 
 ### 2. `eigenvalues.m`
-A script for analytical verification of stability [cite: 220-229].
-Calculates the endemic equilibrium point ($S^*, E^*, I^*$) [cite: 223-225].
-Constructs the Jacobian matrix ($J_{EE}$) at this equilibrium [cite: 226-228].
-Computes eigenvalues to mathematically confirm the nature of the stability (negative real parts with imaginary components indicate a stable spiral)[cite: 229, 91].
+A script for analytical verification of stability
+Calculates the endemic equilibrium point ($S^*, E^*, I^*$)
+Constructs the Jacobian matrix ($J_{EE}$) at this equilibrium
+Computes eigenvalues to mathematically confirm the nature of the stability (negative real parts with imaginary components indicate a stable spiral)
 
 ## 🚀 How to Run
 
 Ensure you have MATLAB installed.
 
 1.  **Run Simulation:**
-    Open `core.m` and run it. The script will output the calculated $R_0$ in the command window and generate three figures visualizing the system's behavior [cite: 96-99].
+    Open `core.m` and run it. The script will output the calculated $R_0$ in the command window and generate three figures visualizing the system's behavior
 
 2.  **Verify Stability:**
-Run `eigenvalues.m` to see the computed eigenvalues for the Jacobian matrix at the endemic equilibrium[cite: 90].
+Run `eigenvalues.m` to see the computed eigenvalues for the Jacobian matrix at the endemic equilibrium
 
 ## 📊 Results
 
-Using the parameters $\beta=0.5, \sigma=0.1, \gamma=0.1, \mu=0.01$ [cite: 103-106, 221]:
-**$R_0 \approx 4.1322$**: The system is in a super-critical state, indicating a severe epidemic[cite: 107].
-**Dynamics:** The system exhibits damped oscillations, converging to an endemic equilibrium[cite: 114].
-* **Stability:** The phase portrait reveals a **stable spiral sink**. This is confirmed by the eigenvalues $\lambda \approx -0.0173 \pm 0.0389i$, where the negative real part ensures asymptotic stability and the imaginary part explains the spiraling behavior [cite: 91-92, 121].
-**Bifurcation:** The analysis confirms a transcritical bifurcation at $R_0=1$, where the disease-free equilibrium loses stability and an endemic state emerges [cite: 134-135].
+Using the parameters $\beta=0.5, \sigma=0.1, \gamma=0.1, \mu=0.01$
+**$R_0 \approx 4.1322$**: The system is in a super-critical state, indicating a severe epidemic
+**Dynamics:** The system exhibits damped oscillations, converging to an endemic equilibrium
+* **Stability:** The phase portrait reveals a **stable spiral sink**. This is confirmed by the eigenvalues $\lambda \approx -0.0173 \pm 0.0389i$, where the negative real part ensures asymptotic stability and the imaginary part explains the spiraling behavior
+**Bifurcation:** The analysis confirms a transcritical bifurcation at $R_0=1$, where the disease-free equilibrium loses stability and an endemic state emerges
 
 ## 👤 Author
 
-**Artem Okhten** [cite: 2]
-Department of Mathematics and Systems Engineering [cite: 4]
-Florida Institute of Technology [cite: 4]
-December 2025 [cite: 6]
+**Artem Okhten**
+Department of Mathematics and Systems Engineering
+Florida Institute of Technology
+December 2025
 
 
 ## 📚 References
-This project is based on foundational work in mathematical biology[cite: 146]:
-Kermack & McKendrick (1927)[cite: 148].
-J.D. Murray, *Mathematical Biology*[cite: 151].
-Hethcote, H. W. (2000)[cite: 147].
+This project is based on foundational work in mathematical biology
+Kermack & McKendrick (1927)
+J.D. Murray, *Mathematical Biology*
+Hethcote, H. W. (2000)
